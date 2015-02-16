@@ -1,0 +1,36 @@
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
+
+paginate: 10 # pagination based on number of posts
+paginate_path: "page:num"
+exclude: ["README.md"] # files to exclude
+highlighter: pygments
+markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+
+
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      title: zhaomengit
+
+description: 简单的程序员而已
+disqus: zhaomengit
+author:
+  name: zhaomengit
+  email: zhaomengit@163.com
+  github: zhaomengit
+  twitter: 
+  pinterest: 
+  linkedin: 
+  bio: Coding..........
+  email_md5: 
+
+rss_path: feed.xml
+categories_path: categories.html
+tags_path: tags.html
+about_path: about.html
+
+BASE_PATH:
