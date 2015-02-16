@@ -116,11 +116,11 @@ def some_function():
 ```
 Decorator语法的简要工作原理:
 
-1. 当Python的解释器看到这个被装饰的方法时，先编译这个方法(some_function), 然后先给它赋一个名字 'some_function'.
-2. 这个方法(some_function)再被传入装饰方法(decorator function)logging_decorator中
-3. 装饰方法(decorator function)logging_decorator返回的新方法替代原来的some_function方法, 与'some_function'这个名字绑定.
+1. 当Python的解释器看到这个被装饰的方法时，先编译这个方法(`some_function`), 然后先给它赋一个名字 `some_function`.
+2. 这个方法(`some_function`)再被传入装饰方法`(decorator function)logging_decorator`中
+3. 装饰方法`(decorator function)logging_decorator`返回的新方法替代原来的`some_function`方法, 与`some_function`这个名字绑定.
 
-记住这些步骤，再来仔细看一下identity_decoratora方法和它注释.
+记住这些步骤，再来仔细看一下`identity_decoratora`方法和它注释.
 ```python
 def identity_decorator(func):
     # Everything here happens when the decorator LOADS and is passed
@@ -212,6 +212,7 @@ grateful_function = argumentative_function(grateful_function)
 grateful_function = argumentative_decorator("sweater")(grateful_function)
 ```
 主要的要关注的是当给定一些参数，装饰器会首先被引用并带有这些参数——就像平时包装过的函数并不在此列。 然后这个函数调用返回值， 装饰器已经包装的这个函数已经传递给初始化后的带参数的装饰器的返回函数。（这种情况下，返回值是`(argumentative_decorator("swearter"))`.
+
 1. 解释器到达装饰过的函数, 编译`grateful_function`, 并把它绑定给`grateful_fucntion`这个名字.
 2. `argumentativ_decorator`被调用, 并传递参数`sweater`, 返回`func_wrapper`. 
 3. `func_wrapper`被调用, 并传入`grateful_function`作为参数, `func_wrapper`返回`returned_wrapper`.
@@ -257,8 +258,11 @@ another_function()
 ```
 
 如果我们需要传`name`到`print_name`方法里面，他将会和之前的`argumentative_decoratorin`效果相同。也就是说，第一个`print_name`将会把`name`作为它的参数。函数在第一次请求时返回的值将会传递到函数里。
+
 如果没有向`print_name`传`name`的参数，将会报缺少修饰的错。它将会像单参数函数一样发送请求。
-`print_name`有这两种可能。他要检查收到的参数是不是一个被包装的函数。如果不是的话，返回`waiting_for_func` 函数来请求被包装的函数。如果收到的是一个函数参数，它将会跳过中间的步骤，立刻请求`actual_decorator`。
+`print_name`有这两种可能。他要检查收到的参数是不是一个被包装的函数。
+
+如果不是的话，返回`waiting_for_func` 函数来请求被包装的函数。如果收到的是一个函数参数，它将会跳过中间的步骤，立刻请求`actual_decorator`。
 
 ###链式装饰器
 装饰器的最后一个特性吧：链式。你可以在任意给定的函数中放置多个装饰器。 它使用一种类似用多继承来构造类的方式来构造函数。但是最好不要过于追求这种方式。
@@ -273,8 +277,10 @@ some_function()
 # >> The function I modify has been called 1 time(s).
 # >> I'm the wrapped function!
 ```
-当你将装饰器链接在一起时，他们在放置在栈中顺序是从下往上。 被包装的函数，`some_fuction`，编译之后，传递给在它之上的第一个装饰器（`loging_decorator`). 然后第一个装饰器的返回值传递给下一个。它将以这样的式传递给链中的每一个装饰器。
-因为我们这里用到的装饰器都是打印一个值然后返回传递给它们的函数。这意味着在链中的最后一个装饰器，`print_name`，当被包装（装饰）的函数调用时，将打印整个输出的第一行。
+当你将装饰器链接在一起时，他们在放置在栈中顺序是从下往上。被包装的函数，`some_fuction`，编译之后，
+传递给在它之上的第一个装饰器（`loging_decorator`).然后第一个装饰器的返回值传递给下一个。它将以这样的式传递给链中的每一个装饰器。
+因为我们这里用到的装饰器都是打印一个值然后返回传递给它们的函数。
+这意味着在链中的最后一个装饰器，`print_name`，当被包装（装饰）的函数调用时，将打印整个输出的第一行。
 
 ###总结
 我认为decorator最大的好处之一是它能让你从高些的层次进行抽象。 使用decorator，也能实现代码重用，从而节省时间，简化调试，使得反射更容易。
