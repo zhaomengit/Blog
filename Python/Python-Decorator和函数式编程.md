@@ -1,0 +1,136 @@
+### 函数（Functions）是第一个对象
+在Python中， 一切都是对象。这意味着即使一个函数被其他对象所包装，我们仍然可以通过这个对象名来进行调用。 举个列子:
+```python
+def traveling_function():
+    print "Here I am!"
+ 
+function_dict = {
+    "func": traveling_function
+}
+ 
+trav_func = function_dict['func']
+trav_func()
+# >> Here I am!
+```
+`traveling_function`尽管在`function_dictdictionary`中被指定为`func`这个`key`的`value`， 但是我们仍然可以正常的使用。
+### 在高阶函数中使用第一类函数
+我们可以以类似其它对象的方式传递对象。它可以是字典的值、列表的项或是另一个对象的属性。
+那么，我们不能将函数以参数的方式传递给另一个函数么？可以！函数作为参数传递给高阶函数。
+```python
+def self_absorbed_function():
+    return "I'm an amazing function!"
+ 
+def printer(func):
+    print "The function passed to me says: " + func()
+ 
+# Call `printer` and give it `self_absorbed_function` as an argument
+printer(self_absorbed_function)
+# >> The function passed to me says: I'm an amazing function!
+```
+上面就是将函数作为参数传递另一个函数，并进行处理的示例。用这种方式，我们可以创造很多有趣的函数，例如 `decorator`。
+### Decorator 基础
+从心而论，`decorator` 只是将函数作为参数的函数。通常，它的作用是返回封装好的经过修饰的函数。
+下面这个简单的身份识别 `decorator` 可以让我们了解 `decorator` 是如何工作的。
+```python
+def identity_decorator(func):
+    def wrapper():
+        func()
+    return wrapper
+ 
+ 
+def a_function():
+    print "I'm a normal function."
+ 
+# `decorated_function` is the function that `identity_decorator` returns, which
+# is the nested function, `wrapper`
+decorated_function = identity_decorator(a_function)
+ 
+# This calls the function that `identity_decorator` returned
+decorated_function()
+# >> I'm a normal function
+```
+在这里，`identity_decoratordoes` 并没有修改其封装的函数。它仅仅是返回了这个函数，
+调用了作为参数传递给 `identity_decorator` 的函数。这个 `decorator` 毫无意义！
+有趣的是在 `identity_decorator` 中，虽然函数没有传递给`wrapper` ，它依然那可以被调用，这是因为闭包原理。
+#### 闭包原理
+闭包是个花哨的术语，意思是当一个函数被声明，在其被声明的词法环境中，它都可以被引用。
+上例中，当 `wrapper` 被定义时，它就访问了本地环境中的函数变量。一旦 `identity_decorato`r 返回，
+你就只能通过 `decorated_function` 访问函数。在 `decorated_function` 的闭包环境之外，函数并非以变量形式存在的。
+### 简单的 decorator
+让我们来创建一个简单的,有点实际功能的Decorator. 这个Decorator所做的就是记录他所包装的方法被调用的次数。
+```python
+def logging_decorator(func):
+    def wrapper():
+        wrapper.count += 1
+        print "The function I modify has been called {0} times(s).".format(
+              wrapper.count)
+        func()
+    wrapper.count = 0
+    return wrapper
+ 
+ 
+def a_function():
+    print "I'm a normal function."
+ 
+modified_function = logging_decorator(a_function)
+ 
+modified_function()
+# >> The function I modify has been called 1 time(s).
+# >> I'm a normal function.
+ 
+modified_function()
+# >> The function I modify has been called 2 time(s).
+# >> I'm a normal function.
+```
+我们说过一个`Decorator`会修改另外一个方法, 这个例子可能会帮助你理解这其中的意思. 
+正如你在这个例子中所看到的一样, `logging_decorator`所返回的新方法和`a_function`很相似，只是多增加了日志功能。
+
+在这个例子中，`logging_decorator`接收一个方法作为参数, 返回另一个包装过的方法. 
+每当`logging_decorator`返回的方法被调用的时候, 他会为`wrapper.count`加1, 打印`wrapper.count`的值, 
+然后再调用`logging_decorator`所包装的方法.
+
+你可能会问为什么我们要把`counter`作为`wrapper`的属性而不是一个普通的变量呢.
+包装器的闭包特性不是可以让我们访问其本地作用域中所申明的变量吗? 是的, 但是有一个小问题.
+在Python中, 闭包完整的提供了对方法作用域链中变量的读权限，但只为同样作用域中的可变对象(比如, 列表, 字典等)提供了写权限. 
+然而, Python中的整数类型是不可变的, 所以我们无法对`wrapper`中的整数变量加1. 
+取而代之的是，我们把`counter`作为`wrapper`的一个属性，它就变成了一个可变对象，这样我们就可以对它进行自增操作了。
+
+###Decorator语法
+在上一个例子中，我们看到一个Decorator可以接受一个方法作为参数，然后在该方法上再包装上其他方法。
+一旦你熟悉了装饰器(Decorator), Python还为你提供了一个特定的语法使得它看上去更直观，更简单。
+```python
+# In the previous example, we used our decorator function by passing the
+# function we wanted to modify to it, and assigning the result to a variable
+ 
+def some_function():
+    print "I'm happiest when decorated."
+ 
+# Here we will make the assigned variable the same name as the wrapped function
+some_function = logging_decorator(some_function)
+
+# We can achieve the exact same thing with this syntax:
+ 
+@logging_decorator
+def some_function():
+    print "I'm happiest when decorated."
+```
+Decorator语法的简要工作原理:
+
+1. 当Python的解释器看到这个被装饰的方法时，先编译这个方法(some_function), 然后先给它赋一个名字 'some_function'.
+2. 这个方法(some_function)再被传入装饰方法(decorator function)logging_decorator中
+3. 装饰方法(decorator function)logging_decorator返回的新方法替代原来的some_function方法, 与'some_function'这个名字绑定.
+
+记住这些步骤，再来仔细看一下identity_decoratora方法和它注释.
+```python
+def identity_decorator(func):
+    # Everything here happens when the decorator LOADS and is passed
+    # the function as described in step 2 above
+    def wrapper():
+        # Things here happen each time the final wrapped function gets CALLED
+        func()
+    return wrapper
+```
+希望这里的注释能起到一定的引导作用. 只有在装饰器所返回的方法中的指令才会在每次调用的时候被执行. 
+在被返回函数外的指令只会被执行一次-- 在第二步 当装饰器第一次接受一个方法的时候。
+
+
