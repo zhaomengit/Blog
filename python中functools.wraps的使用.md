@@ -1,4 +1,4 @@
-使用装饰器的一个副作用就是，装饰之后函数丢失了它本来的__name__,__doc__及__module__属性。
+使用装饰器的一个副作用就是，装饰之后函数丢失了它本来的\__name__,\__doc__及\__module__属性。
 ```python
 def my_decorator(f):
     def wrapper(*args, **kwds):
@@ -22,7 +22,7 @@ print example.__doc__
     >>>wrapper
     >>>None
     
-使用functools.wraps中@wraps装饰器可以让丢失的函数属性__name__,__doc__,__module__恢复
+使用functools.wraps中@wraps装饰器可以让丢失的函数属性\__name__,\__doc__,\__module__恢复
 
 ```python
 from functools import wraps
