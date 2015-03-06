@@ -1,3 +1,10 @@
+---
+layout: post
+title: xshell配色方案
+categories: Linux
+tags: xshell
+comments: true
+---
 ###配色方案
 保存到ComfortColor.xcs，从XShell中工具-配色方案中导入即可
 
