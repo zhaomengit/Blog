@@ -48,5 +48,8 @@ print example.__doc__
     >>>Called example function
     >>>example
     >>>Docstring
+    
+###参考
+http://blog.jkey.lu/2013/03/15/python-decorator-and-functools-module/
   
 
