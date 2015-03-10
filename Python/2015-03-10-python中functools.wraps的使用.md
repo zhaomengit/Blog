@@ -66,14 +66,20 @@ print example.__doc__
 ###@wraps实现原理
 上面的例子，函数的调用顺序是:
 
-    example() -> my_decorator(example)() -> wraps(example, assigned = WRAPPER_ASSIGNMENTS, updated = WRAPPER_UPDATES)(wrapper)()
+    example() -> my_decorator(example)() 
+    -> wraps(example, assigned = WRAPPER_ASSIGNMENTS, updated = WRAPPER_UPDATES)(wrapper)()
 
   查看wraps的实现代码是：
 
 ```python
-  def wraps(wrapped, assigned = WRAPPER_ASSIGNMENTS, updated = WRAPPER_UPDATES):
+  def wraps(wrapped, 
+            assigned = WRAPPER_ASSIGNMENTS, 
+            updated = WRAPPER_UPDATES):
 
-    return partial(update_wrapper, wrapped=wrapped, assigned=assigned, updated=updated)
+    return partial(update_wrapper, 
+                   wrapped=wrapped, 
+                   assigned=assigned, 
+                   updated=updated)
 ```
 
 即:
@@ -126,7 +132,7 @@ print int2('11') # 3
 print int2('101') # 5
 ```
 
-###附录：完整的实现（没有使用库）函数
+###附录：完整的实现（没有使用库函数)
 
 ```python
 def partial_t(func, *args, **keywords):
