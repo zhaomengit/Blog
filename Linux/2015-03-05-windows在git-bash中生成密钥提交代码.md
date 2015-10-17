@@ -39,3 +39,16 @@ https://help.github.com/articles/generating-ssh-keys/
     HostName github.com
     User git
     IdentityFile G:/myblog/key/gitkey
+    
+如果需要多个地址，分行隔开就可以了，例如：
+
+    # Default github user(youremail@xxx.com)
+    Host github.com
+    HostName github.com
+    User zhaomengit
+    IdentityFile G:/myproject/ssh-keys/keygithub
+    
+    Host gitcafe.com
+    HostName gitcafe.com
+    User zhaomengit
+    IdentityFile G:/myproject/ssh-keys/keygithub
