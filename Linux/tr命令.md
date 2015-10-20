@@ -13,14 +13,19 @@ tr的例子其实都大同小异，看一个最简单的例子：
 
 我们有一个包含了四个人身高的数据文件，名字叫height.txt，它的内容是这样的：
 
+```
 [rocrocket@rocrocket programming]$ cat height.txt
 1.79 1.83
 1.65 1.59
+```
 
 我们想搞一个恶作剧，将所有人的身高从1米级别都提高到2米级别，呵呵，一个tr就可以搞定。
+
+```
 [rocrocket@rocrocket programming]$ tr 1 2 < height.txt
 2.79 2.83
 2.65 2.59
+```
 
 希望你没有忘记，tr只处理标准输入，所以我们需要将height.txt通过重定向指到tr的标准输入才可以。
 
@@ -32,17 +37,21 @@ Good idea!
 
 还是以height.txt文件为例，其中的间隔符是空格，我们把它修改为制表符吧！
 
+```
 [rocrocket@rocrocket programming]$ tr ‘ ‘ ‘\11′ < height.txt
 1.79    1.83
 1.65    1.59
+```
 
 这里有一个小知识点，像制表符、换行符这些字符不好表示，我们可以考虑使用ASCII的八进制形式来表示，制表符的八进制形式是11，回车是15，换行是12。而在tr命令中，可以使用\nnn形式表示八进制形式的字符。如果你实在记不住这些编号，那么用\t表示制表符你总该可以记住吧！（\n代表新行，\r代表回车）
 
 这下，你应该可以理解上面那条命令的作用了吧。如果你仍然怀疑，那么，看看下面这条命令，你就该心服口服了：
 
+```
 [rocrocket@rocrocket programming]$ tr ‘ ‘ ‘\11′ < height.txt |sed -n l
 1.79\t1.83$
 1.65\t1.59$
+```
 
 看！空格的的确确被替换成了制表符喽！
 
@@ -54,10 +63,12 @@ Good idea!
 
 那么最简单的替换大小写的方法是：
 
+```
 [rocrocket@rocrocket programming]$ cat word.txt
 AbcdE
 [rocrocket@rocrocket programming]$ tr ‘a-z’ ‘A-Z’ < word.txt
 ABCDE
+```
 
 5 [CHAR*]怎么用？
 
@@ -65,10 +76,12 @@ ABCDE
 
 例子：
 
+```
 [rocrocket@rocrocket programming]$ cat number.txt
 1234567890
 [rocrocket@rocrocket programming]$ tr ‘1-5′ ‘[A*]’ < number.txt
 AAAAA67890
+```
 
 6 [CHAR*REPEAT]怎么用？
 
@@ -76,8 +89,10 @@ AAAAA67890
 
 例子：
 
+```
 [rocrocket@rocrocket programming]$ tr ‘1-9′ ‘[A*5]BCDE’ < number.txt
 AAAAABCDE0
+```
 
 7 在tr中还有哪些表示集合的符号呢?
 
@@ -98,8 +113,10 @@ AAAAABCDE0
 
 将所有的数字都转换为字符x。
 
+```
 [rocrocket@rocrocket programming]$ tr [:alnum:] ‘[x*]’ < number.txt
 xxxxxxxxxx
+```
 
 8 tr里面包含SET1和SET2，那如果出现两个集合的大小不同的情况，tr如何处理呢？
 
