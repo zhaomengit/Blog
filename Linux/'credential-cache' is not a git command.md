@@ -8,3 +8,5 @@ git: 'credential-cache' is not a git command. See 'git --help'.
 ```
 git config --global credential.helper wincred
 ```
+
+即可解决
