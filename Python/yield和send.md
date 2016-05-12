@@ -1,5 +1,5 @@
 
-'''python
+```python
 i = 1
 
 def testyield():
@@ -17,4 +17,4 @@ def testyield():
 l = testyield()
 l.send(None)
 l.send(10)
-'''
+```
