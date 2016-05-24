@@ -116,3 +116,6 @@ return sb.toString();
 
 1. Solutions 4, 5 and 9 convert different linebreaks to one.
 2. Soulution 11 can't work correclty with Unicode text
+
+
+参考: http://stackoverflow.com/questions/309424/read-convert-an-inputstream-to-a-string
