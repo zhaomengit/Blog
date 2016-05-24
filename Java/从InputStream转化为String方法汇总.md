@@ -114,5 +114,5 @@ return sb.toString();
 
 **Warning**:
 
-1.Solutions 4, 5 and 9 convert different linebreaks to one.
-2.Soulution 11 can't work correclty with Unicode text
+1. Solutions 4, 5 and 9 convert different linebreaks to one.
+2. Soulution 11 can't work correclty with Unicode text
