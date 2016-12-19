@@ -47,7 +47,7 @@
 #### 5.查看当前目录各个文件夹大小
 
 ```
-[zhaomeng1@D11018427 var]$ sudo du -h --max-depth=1 
+[zhaomengit@zm var]$ sudo du -h --max-depth=1 
 144K    ./spool
 4.0K    ./account
 4.0K    ./preserve
