@@ -16,3 +16,25 @@ DOCKER_OPTS="-H 127.0.0.1:4243"
 ```
 $ sudo service docker restart
 ```
+
+```
+
+WARNING: bridge-nf-call-iptables is disabled
+WARNING: bridge-nf-call-ip6tables is disabled
+```
+
+`vim  /etc/sysctl.conf`
+
+```
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-arptables = 1
+```
+
+```
+sysctl -p
+```
+
+```
+vim /etc/systemd/system/docker.service.d
+```
