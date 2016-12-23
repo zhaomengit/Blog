@@ -29,7 +29,8 @@ git svn clone %your_svn_address% --authors-file=user.txt  --no-metadata  -r {FRO
 5. -s 命令,这个要注意下,解释如下:
 
 ```
-使用命令git svn clone -s %your_svn_address%, 为什么要加-s ， 因为这个仓库是按照标准的tags、trunk、branches结构划分的，则git svn会将对应的分支、标签识别存放到git的结构中。 如果不加-s，不会将tags、branch按照git的结构进行划分 。
+使用命令git svn clone -s %your_svn_address%, 为什么要加-s ， 因为这个仓库是按照标准的tags、trunk、branches结构划分的， 
+则git svn会将对应的分支、标签识别存放到git的结构中。 如果不加-s，不会将tags、branch按照git的结构进行划分 。
 ```
 
 如果你加入`-s`命令生成的项目为空,说明svn仓库不是按照标准的tags、trunk、branches结构划分的,去掉`-s`选项
