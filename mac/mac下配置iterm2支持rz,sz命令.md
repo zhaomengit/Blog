@@ -1,5 +1,5 @@
-1. 安装lrzsz: brew install lrzsz
-2. 保存iterm2-send-zmodem.sh和 iterm2-recv-zmodem.sh 脚本 到 /usr/local/bin/
+#### 1. 安装lrzsz: brew install lrzsz
+#### 2. 保存`iterm2-send-zmodem.sh`和 `iterm2-recv-zmodem.sh` 脚本 到 `/usr/local/bin/`
 
 iterm2-recv-zmodem.sh:
 
@@ -64,7 +64,7 @@ else
 fi
 ```
 
-2. 打开iTerm的Preferences,点进Profiles项，Advanced项,进入Tirggers，点击Edit，添加两条规则
+#### 3. 打开iTerm的Preferences,点进Profiles项，Advanced项,进入Tirggers，点击Edit，添加两条规则
 
 ```
     Regular expression: rz waiting to receive.\*\*B0100
@@ -77,7 +77,7 @@ fi
     Parameters: /usr/local/bin/iterm2-recv-zmodem.sh
     Instant: checked
  ```
- 
+#### 4.使用
 发送文件到远程机器:
 
 1. 使用sz命令
