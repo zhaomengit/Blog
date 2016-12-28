@@ -87,3 +87,14 @@ lsof -i:8080
 ```
 curl  -F "filename=@/home/test/file.tar.gz" http://localhost/action.php
 ```
+curl陷阱注意:
+
+```
+curl -X GET  http://www.xxx.com/test?a=1&b=2
+```
+
+这个地方&是有问题的,Linux默认当做后台执行,这个地方可以这样改正
+
+```
+curl -X GET  'http://www.xxx.com/test?a=1&b=2' 或者 curl -X GET  'http://www.xxx.com/test?a=1\&b=2'
+```
